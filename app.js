@@ -61,14 +61,16 @@ svg.selectAll(current).attr('visibility', 'visible')
 rooms = svg.selectAll(current + ' >g').nodes()
 rooms = rooms.filter((_, key) => key !== 0)
 
-for (let i = 0; i < rooms.length; i++) {
-  let room = select(rooms[i])
-  const NameRoom = room
+rooms.forEach((room) => {
+  const roomSelected = select(room)
+
+  const NameRoom = roomSelected
     .select('text')
     .text()
     .replace(/\s|\t|\r/g, '')
-  room.attr('data-nameroom', NameRoom)
-}
+
+  roomSelected.attr('data-nameroom', NameRoom)
+})
 
 function removingInputClearingNodeColor() {
   if (nodeColor) {
@@ -87,9 +89,9 @@ const afterFirstDragInsideSquare = drag()
   .on('start', function (event) {
     removingInputClearingNodeColor()
     removeAllCloseButton(this.parentNode)
-    let current = select(this).attr('transform')
+    const current = select(this).attr('transform')
     if (current) {
-      let transform = current.replace(/[a-z()]+/g, '').split(/\s/)
+      const transform = current.replace(/[a-z()]+/g, '').split(/\s/)
       deltaX = parseFloat(transform[0]) - event.x
       deltaY = parseFloat(transform[1]) - event.y
 
@@ -106,8 +108,8 @@ const afterFirstDragInsideSquare = drag()
       .select('g')
       .attr('transform', `translate(${event.x + deltaX} ${event.y + deltaY})`)
 
-    let t = select(this.parentNode).select('text')
-    let circle = select(this).node().getBoundingClientRect()
+    const t = select(this.parentNode).select('text')
+    const circle = select(this).node().getBoundingClientRect()
     t.attr(
       'transform',
       `translate(${event.x + deltaX + circle.width / 2 - 5} ${
@@ -117,7 +119,7 @@ const afterFirstDragInsideSquare = drag()
 
     select(this).attr(
       'transform',
-      'translate(' + (event.x + deltaX) + ' ' + (event.y + deltaY) + ')',
+      `translate(${event.x + deltaX} ${event.y + deltaY})`,
     )
 
     forEachRoomInBoundsDo(this, hightLightRoom)
@@ -158,34 +160,32 @@ const afterFirstDragInsideSquare = drag()
         .duration(750)
         .attr(
           'transform',
-          'translate(' +
-            (parseFloat(startX) - textNodeBounds.width / 2 + circle.width / 2) +
-            ' ' +
-            (parseFloat(startY) +
-              textNodeBounds.height / 4 +
-              circle.height / 2) +
-            ')',
+          `translate(${
+            parseFloat(startX) - textNodeBounds.width / 2 + circle.width / 2
+          } ${
+            parseFloat(startY) + textNodeBounds.height / 4 + circle.height / 2
+          })`,
         )
 
       select(this.parentNode)
         .select('g')
         .transition()
         .duration(750)
-        .attr('transform', 'translate(' + startX + ' ' + startY + ')')
+        .attr('transform', `translate(${startX} ${startY})`)
 
       select(this)
         .transition()
         .duration(750)
-        .attr('transform', 'translate(' + startX + ' ' + startY + ')')
+        .attr('transform', `translate(${startX} ${startY})`)
     }
   })
 
 const firstDragInsideSquares = drag()
   .on('start', function (event) {
     removingInputClearingNodeColor()
-    let current = select(this).attr('transform')
+    const current = select(this).attr('transform')
     if (current) {
-      let transform = current.replace(/[a-z()]+/g, '').split(/\s/)
+      const transform = current.replace(/[a-z()]+/g, '').split(/\s/)
       deltaX = parseFloat(transform[0]) - event.x
       deltaY = parseFloat(transform[1]) - event.y
 
@@ -234,7 +234,9 @@ const firstDragInsideSquares = drag()
         let t = g.append('text')
         t.attr(
           'transform',
-          `translate(${translate.x + circle.width / 2 - 5} ${translate.y + circle.height / 2 + 5})`,
+          `translate(${translate.x + circle.width / 2 - 5} ${
+            translate.y + circle.height / 2 + 5
+          })`,
         )
         t.append('tspan').text('1')
         t.on('dblclick', function (d) {
@@ -258,7 +260,7 @@ const firstDragInsideSquares = drag()
             $(box).remove()
           }
 
-          function returnOrginValue(box) {
+          function returnOriginValue(box) {
             select(nodeColor.node().parentNode).select('text').text(valorinput)
             $(box).remove()
           }
@@ -274,7 +276,7 @@ const firstDragInsideSquares = drag()
               if (this.value) {
                 removeTextNumber(this)
               } else {
-                returnOrginValue(this)
+                returnOriginValue(this)
               }
             })
         })
@@ -284,10 +286,7 @@ const firstDragInsideSquares = drag()
 
         afterFirstDragInsideSquare(nodeColor)
 
-        nodeColor.attr(
-          'transform',
-          'translate(' + translate.x + ' ' + translate.y + ')',
-        )
+        nodeColor.attr('transform', `translate(${translate.x} ${translate.y})`)
 
         nodeColor.on('click', function () {
           if (nodeColor) {
@@ -323,11 +322,7 @@ const firstDragInsideSquares = drag()
 
             text.attr(
               'transform',
-              'translate(' +
-                (parseFloat(x) - 15) +
-                ' ' +
-                (parseFloat(y) + 16) +
-                ')',
+              `translate(${parseFloat(x) - 15} ${parseFloat(y) + 16})`,
             )
 
             $(text.node()).click(function () {

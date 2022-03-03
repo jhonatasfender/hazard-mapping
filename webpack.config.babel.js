@@ -1,5 +1,6 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import { resolve } from 'path'
+import WebpackFavicons from 'webpack-favicons'
 
 const __dirname = resolve()
 
@@ -33,6 +34,15 @@ const config = {
     new HtmlWebpackPlugin({
       inject: 'body',
       template: 'public/index.html',
+    }),
+    new WebpackFavicons({
+      src: 'public/img/hazard.png',
+      path: 'img',
+      background: '#000',
+      theme_color: '#000',
+      icons: {
+        favicons: true,
+      },
     }),
   ],
 }
