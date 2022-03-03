@@ -1,0 +1,257 @@
+@import url("https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: sans-serif;
+  line-height: 1.15;
+  font-size: 62.5%;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+  background-color: #ffffff;
+}
+
+@keyframes border-spin {
+  0% {
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    stroke-dashoffset: 109;
+  }
+}
+
+#game-1 {
+  h1.fase {
+    position: absolute;
+    right: 120px;
+    top: 31px;
+  }
+
+  .circle {
+    cursor: -moz-grab;
+    cursor: grab;
+  }
+
+  .circle.active {
+    cursor: -moz-grabbing;
+    cursor: grabbing;
+  }
+
+  .close-button {
+    fill: #8f002d;
+    font-size: 50px;
+    cursor: pointer;
+  }
+
+  .highlight-room {
+    stroke: red;
+    stroke-width: 2;
+    stroke-dasharray: 7;
+    animation: border-spin 5s linear infinite;
+  }
+
+  .feedback {
+    display: none;
+    position: fixed;
+    right: 0;
+    z-index: 3;
+    height: 100%;
+    width: 352px;
+    top: 0;
+  }
+
+  .feedback.missed {
+    background-color: #bc1e1e;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding: 0px 17px;
+
+    .move-on {
+      display: none;
+    }
+
+    .message-missed {
+      display: block;
+      color: #f9f9f7;
+      font-weight: 400;
+      font-size: 1.8rem;
+      margin: 21px 0px;
+      width: 100%;
+      h1 {
+        font-size: 2rem;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      p {
+        font-size: 1.4rem;
+        text-align: left;
+        padding: 1px 48px;
+      }
+    }
+
+    .message-check {
+      display: none;
+    }
+
+    .fase {
+      color: #f9f9f7;
+      font-weight: 400;
+      font-size: 1.8rem;
+      margin: 21px 0px;
+      width: 100%;
+      font-size: 4rem;
+      font-weight: 300;
+      text-align: center;
+      h1 {
+        font-size: 2rem;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      p {
+        font-size: 1.4rem;
+        text-align: left;
+        padding: 1px 48px;
+      }
+    }
+  }
+
+  .feedback.check {
+    background-color: #00a013;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding: 0px 17px;
+
+    .move-on {
+      display: block;
+    }
+
+    .message-missed {
+      display: none;
+      color: #f9f9f7;
+      font-weight: 400;
+      font-size: 1.8rem;
+      margin: 21px 0px;
+      width: 100%;
+      h1 {
+        font-size: 2rem;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      p {
+        font-size: 1.4rem;
+        text-align: left;
+        padding: 1px 48px;
+      }
+    }
+
+    .message-check {
+      display: block;
+      color: white;
+      p {
+        font-size: 1.1rem;
+        text-align: left;
+        padding: 1px 27px;
+      }
+
+      h1 {
+        font-size: 2rem;
+        text-align: center;
+        font-weight: bold;
+      }
+    }
+
+    .imprimir {
+      display: block;
+      width: 100%;
+      height: 59px;
+      background-position: center;
+    }
+
+    .voltar-curso {
+      display: block;
+      width: 100%;
+      height: 59px;
+      background-position: center;
+      margin-top: 17px;
+    }
+
+    .fase {
+      color: #f9f9f7;
+      font-weight: 400;
+      font-size: 1.8rem;
+      margin: 21px 0px;
+      width: 100%;
+      font-size: 4rem;
+      font-weight: 300;
+      text-align: center;
+      h1 {
+        font-size: 2rem;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      p {
+        font-size: 1.4rem;
+        text-align: left;
+        padding: 1px 48px;
+      }
+    }
+  }
+
+  .help-question-button {
+    position: absolute;
+    left: 280px;
+    top: 52px;
+  }
+
+  .butao-game {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    #validar-game1 {
+      margin: 11px 15px;
+      img {
+        width: 140px;
+        height: 58px;
+      }
+    }
+
+    .btn-back {
+      margin: 11px 15px;
+      img {
+        width: 140px;
+        height: 58px;
+      }
+    }
+  }
+}
