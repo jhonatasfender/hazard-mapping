@@ -5,12 +5,12 @@ import transition from 'd3-transition'
 import $ from 'jquery'
 
 const svg = select('#game-1 svg')
-var rooms
+let rooms
 
-var deltaX, deltaY
-var startX, startY
-var nodeColor
-var color = '#adb5bd'
+let deltaX, deltaY
+let startX, startY
+let nodeColor
+let color = '#adb5bd'
 
 function removeHightLightFromAllRooms() {
   selectAll('rect.rect-room').classed('highlight-room', false)
@@ -28,7 +28,7 @@ function forEachRoomInBoundsDo(context, callback) {
   let xmax = circle.left + circle.width
   let ymax = circle.top + circle.height
 
-  for (var room of rooms) {
+  for (const room of rooms) {
     let { x1, x2, y1, y2 } = getBoundingClientRectCoordinates(
       select(room).select('rect, path').node(),
     )
@@ -83,7 +83,7 @@ function removingInputClearingNodeColor() {
   }
 }
 
-var afterFirstDragInsideSquare = drag()
+const afterFirstDragInsideSquare = drag()
   .on('start', function (event) {
     removingInputClearingNodeColor()
     removeAllCloseButton(this.parentNode)
@@ -134,7 +134,7 @@ var afterFirstDragInsideSquare = drag()
 
     let revertToOriginalPosition = true
 
-    for (var room of rooms) {
+    for (const room of rooms) {
       let { x1, x2, y1, y2 } = getBoundingClientRectCoordinates(
         select(room).select('rect').node(),
       )
@@ -180,7 +180,7 @@ var afterFirstDragInsideSquare = drag()
     }
   })
 
-var firstDragInsideSquares = drag()
+const firstDragInsideSquares = drag()
   .on('start', function (event) {
     removingInputClearingNodeColor()
     let current = select(this).attr('transform')
@@ -234,25 +234,23 @@ var firstDragInsideSquares = drag()
         let t = g.append('text')
         t.attr(
           'transform',
-          'translate(' +
-            (translate.x + circle.width / 2 - 5) +
-            ' ' +
-            (translate.y + circle.height / 2 + 5) +
-            ')',
+          `translate(${translate.x + circle.width / 2 - 5} ${translate.y + circle.height / 2 + 5})`,
         )
         t.append('tspan').text('1')
         t.on('dblclick', function (d) {
           removeAllCloseButton()
-          var offset = $(this).offset()
+          const offset = $(this).offset()
           let valorinput = select(this).text()
           select(this).text('')
 
           nodeColor = select(select(this.parentNode).select('circle').node())
 
           $('.div-input-game').remove()
-          const box = $(`<div class="div-input-game" style="position: fixed; left: ${offset.left}; top: ${offset.top}">
-                                        <input type="number" value="${valorinput}" class="input-svg-game" name="quantidade" id="quantidade-svg" min=1  />
-                                    </div>`)
+          const box = $(`
+            <div class="div-input-game" style="position: fixed; left: ${offset.left}; top: ${offset.top}">
+              <input type="number" value="${valorinput}" class="input-svg-game" name="quantidade" id="quantidade-svg" min=1  />
+            </div>
+          `)
           $('body').append(box)
 
           function removeTextNumber(box) {
@@ -371,11 +369,11 @@ selectAll('g#mapa_4_1_2 rect').on('click', function () {
 firstDragInsideSquares(svg.selectAll('circle'))
 
 function removeAllCloseButton(element) {
-  // if (element) {
-  //   select(element).select('.close-button').remove()
-  // } else {
-  //   select('.close-button').remove()
-  // }
+  if (element) {
+    select(element).select('.close-button').remove()
+  } else {
+    select('.close-button').remove()
+  }
 }
 
 function getPosition(circleElement, event) {
