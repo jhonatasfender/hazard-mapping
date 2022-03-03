@@ -1,9 +1,16 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import { resolve } from 'path'
+
+const __dirname = resolve()
 
 const config = {
   entry: ['./app.js'],
   mode: 'development',
   devtool: 'source-map',
+  output: {
+    filename: '[name].bundle.js',
+    path: resolve(__dirname, 'docs'),
+  },
   module: {
     rules: [
       {
